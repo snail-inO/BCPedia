@@ -30,37 +30,40 @@ This system is a platform that provide following functions: content publishment,
 
 ### API Usage
 #### On-chain interactions
-The scripts are at directory: `$ cd BCPedia/offchain/scripts`
+The scripts are at directory: `$ cd BCPedia/offchain/scripts`\
 The project provides following scripts:
-#####BCPedia.js
+
+##### BCPedia.js
 Provides interfaces to interact with BCPedia SCs, usage: `$ node BCPeida.js [contract name] [function name] [parameters]`
-#####Forward.js
+
+##### Forward.js
 Provides interface for time and block accelaration of local ganache blockchain, usage: `$ node Forward.js [time|block] [blockNumber]`
-#####Hash.js
+
+##### Hash.js
 Provides sha256 hashing interface, usage: `$ node Hash.js [input]`
 
 #### Off-chain interaction
 ##### Proposal interfaces
-`GET localhost:8080/proposal`: retrieve all proposals
-`POST localhost:8080/proposal`: create a new proposal
+`GET localhost:8080/proposal`: retrieve all proposals\
+`POST localhost:8080/proposal`: create a new proposal\
 `GET/DELETE localhost:8080/proposal/{pid}`: retrieve/delete specific proposal with proposal id = pid
 
 ##### Entry interfaces
-`GET localhost:8080/entries`: retrieve all entries
-`POST localhost:8080/entries`: create a new entry
-`GET/DELETE localhost:8080/entries/{eid}`: retrieve/delete specific entry with entry id = pid
+`GET localhost:8080/entries`: retrieve all entries\
+`POST localhost:8080/entries`: create a new entry\
+`GET/DELETE localhost:8080/entries/{eid}`: retrieve/delete specific entry with entry id = pid\
 `PATCH localhost:8080/entries`: update a specific entry
 
 ##### Like interfaces
-`POST localhost:8080/like/init?addr={SC address}&account={admin account}&key={admin private key}`: init the like submission function
-`POST localhost:8080/like`: create a like counter for a specific entry
-`GET localhost:8080/like`: retrieve all like counters
+`POST localhost:8080/like/init?addr={SC address}&account={admin account}&key={admin private key}`: init the like submission function\
+`POST localhost:8080/like`: create a like counter for a specific entry\
+`GET localhost:8080/like`: retrieve all like counters\
 `POST localhost:8080/like/{entry id}?uid={user account}`: submit a like to a specific entry with a user account
 
 ### Demos
-[BCPedia CreateEntry Proposal and Vote WorkFlow Demo](https://youtu.be/iZVTP1ses4A)
-[BCPedia batchUpdateLikes Workflow Demo](https://youtu.be/3xgmd-C23o0)
-[BCPedia Request Promote Demo](https://youtu.be/8kCTshtTzzs)
+[BCPedia CreateEntry Proposal and Vote WorkFlow Demo](https://youtu.be/iZVTP1ses4A)\
+[BCPedia batchUpdateLikes Workflow Demo](https://youtu.be/3xgmd-C23o0)\
+[BCPedia Request Promote Demo](https://youtu.be/8kCTshtTzzs)\
 [BCPedia Resign Validator Demo](https://youtu.be/clWmIfgMNig)
 
 ## Licence
