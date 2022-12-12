@@ -1,0 +1,62 @@
+@startuml offchain_system
+mainframe component offchainSystem
+
+component offchainSystem {
+    [InputProcessor] as ip
+    portin upload as ul
+    portin update as ud
+    portin dispute as dp
+
+    [BlockchainScanner] as bs
+    portin scanBlock as sc
+
+    [ScheduleSubmitter] as ssm
+    portin submitLike as sl
+    portout batchUpdateLike as bul
+
+    [NFTDatabase] as db
+    () "write" as w
+    () "read" as r
+
+    [OutputProcessor] as op
+    portout getEntry as ge
+    portout searchKeyword as sk
+
+}
+
+' Input Processor
+ul --> ip
+ud --> ip
+dp --> ip
+
+w )-- ip
+r )-- ip
+
+
+' Blockchain Scanner
+sc --> bs
+
+w )-- bs
+
+
+' Schedule Submitter
+sl --> ssm
+
+w )-- ssm
+r )-- ssm
+
+ssm --> bul
+
+
+' NFT Database
+db --() w
+db --() r
+
+
+' Output Processor
+op --> ge
+op --> sk
+
+r )-- op
+
+@enduml

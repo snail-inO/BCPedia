@@ -1,0 +1,60 @@
+@startuml usecase1
+mainframe uc upload & update
+
+:userA: as ua <<EOA>>
+:validator group: as va <<EOA>>
+
+package OffchainServer <<Server>> {
+    usecase "upload/update" as ul
+    usecase deleteData as dd
+}
+
+package BCPediaPeriphery <<SC>> {
+    usecase "createEntry/updateEntry" as ce
+}
+
+package BCPediaGovernor <<SC>> {
+    usecase propose as pp
+    usecase excecute as ex
+    usecase queue as qu
+    usecase vote as vt
+}
+
+package BCPediaTimeLock <<SC>> {
+    usecase schedule as sd
+    usecase excecute as tex
+    usecase cancel as cl
+}
+
+package BCPediaTokens <<ERC1155>> {
+    usecase mint as m
+    usecase transferFrom as tf
+}
+
+note "Simplified procedures" as n1
+BCPediaTokens -[hidden]l- n1
+ex -[hidden]r-sd
+
+ua --> ul :1-markdown format
+ul --> ce :1-content hash
+ce --> pp :1
+
+va --> vt :2
+
+vt --> qu :2.a-if proposal succeeded
+qu --> sd :2.a
+qu --> ex :2.a
+ex --> tex :2.a
+
+tex --> m :2.a
+m ..> ua :2.a-Entry NFT(when upload) & reward
+m ..> va :2.a-reward
+
+
+vt --> cl :2.b-if proposal failed
+cl ..> dd :2.b
+cl --> tf :2.b
+tf ..> ua :2.b-punishment
+tf ..> va :2.b-reward
+
+@enduml

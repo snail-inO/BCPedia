@@ -1,0 +1,30 @@
+@startuml usecase3
+mainframe uc requestPromote
+
+:userA: as ua <<EOA>>
+
+package BCPediaPeriphery as pp <<SC>> {
+    usecase requestPromote as rp
+}
+
+package BCPediaTokens <<ERC1155>> {
+    usecase balanceOf as bo
+    usecase setApprovalForAll as sa
+    usecase transferFrom as tf
+    usecase mint as m
+}
+
+note "Simplified procedures" as n1
+
+ua --> rp
+ua --> sa
+
+sa ..> pp
+
+rp <--> bo : satisfy condition?
+rp --> tf : transfer FT from user to periphery
+rp --> m : mint certifacate
+m ..> ua
+
+
+@enduml

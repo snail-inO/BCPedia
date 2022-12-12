@@ -1,0 +1,1 @@
+export const PROVIDER = "http://localhost:8545";

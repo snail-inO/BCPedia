@@ -1,0 +1,39 @@
+@startuml system
+mainframe component system
+
+component system {
+    component onchainSystem as bc
+    () "onchain data" as bcout
+
+    component offchainSystem as os
+    () "server output" as sout
+
+    component frontend as ui
+    () "processed input" as fout
+
+    portin "user input" as fin
+
+    portout "system output" as so
+}
+
+'  front end
+fin )-l- ui
+sout )-- ui
+
+ui --() fout
+ui -d------> so
+
+
+' offchain server
+fout )-- os
+bcout )-- os
+
+os --() sout
+
+
+' onchain system
+sout )-- bc
+
+bc --() bcout
+
+@enduml

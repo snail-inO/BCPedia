@@ -1,0 +1,34 @@
+@startuml usecase2
+mainframe uc like
+
+:userA: as ua <<EOA>>
+:userB: as ub <<EOA>>
+:entry owner: as eo <<EOA>>
+
+package offchainServer {
+    usecase submitLike as sl
+    usecase verify as vf <<internal>>
+    usecase batchUpdateLikes as sbul
+}
+
+package BCPediaPeriphery <<SC>> {
+    usecase batchUpdateLikes as bul
+}
+
+package BCPediaTokens <<ERC1155>> {
+    usecase mint as m
+}
+
+note "Simplified procedures" as n1
+
+ua --> sl :1-specify the entry
+ub --> sl :1-specify the entry
+
+sl <--> vf :1
+sbul --> bul :2-when satisfy threshold
+
+bul --> m :2
+
+m ..> eo :2
+
+@enduml

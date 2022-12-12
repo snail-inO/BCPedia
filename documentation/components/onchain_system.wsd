@@ -1,0 +1,88 @@
+@startuml onchain_system
+mainframe component onchainSystem
+
+component onchainSystem {
+    [BCPediaPeriphery] as pp
+    portin createEntry as ce
+    portin updateEntry as ue
+    portin disputeEntry as de
+    portin proceedProposal as pcp
+
+    [BCPediaDelegator] as dg
+    () createEntry as dce
+    () updateEntry as due
+    () removeEntry as dre
+    portin batchUpdateLikes as bul
+    portin requestPromote as rp
+    portin resign as rs
+
+
+    [BCPediaGovernor] as gv
+    () "propose" as pr
+    () "queue" as qu
+    () "execute" as ex
+    portin "vote" as vo
+    
+    [BCPediaTimeLockController] as tl
+    () "schedule" as sc
+    () "execute" as tex
+    () "cancel" as cl
+
+    [BCPediaTokens] as tk <<ERC1155>>
+    portout ERC1155Interface as ti
+
+}
+
+vo -[hidden]-- de
+pp --[hidden]d- gv
+gv --[hidden]d- tl
+tl --[hidden]d- tk
+
+' Periphery
+pp <-- ce
+pp <-- ue
+pp <-- de
+pp <-- pcp
+
+qu )-u- pp
+ex )-u- pp
+pr )-u- pp
+ti )-------u- pp
+
+' Delegator
+dg <-- bul
+dg <-- rp
+dg <-- rs
+
+ti )-------u- dg
+
+dg -u-() dce
+dg -u-() due
+dg -u-() dre
+
+
+' Governor
+gv -u-() pr
+gv -u-() ex
+gv <-- vo
+gv -u-() qu
+
+sc )-u- gv
+tex )-u- gv
+cl )-u- gv
+ti )--u- gv
+
+' TimeLock
+tl -u-() sc
+tl -u-() tex
+tl -u-() cl
+
+ti )--u- tl
+dce )-u- tl
+due )-u- tl
+dre )-u- tl
+
+' Token
+tk -d-> ti
+
+@enduml
